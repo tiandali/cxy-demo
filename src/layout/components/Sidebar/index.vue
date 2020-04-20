@@ -110,7 +110,7 @@ export default {
     display: flex;
     // height: 80px;
     align-items: center;
-    width: 240px;
+    width: 290px;
 
     img {
       width: 60px;
@@ -137,5 +137,6 @@ export default {
       font-size: 12px;
     }
   }
-}</style
+}
+</style
 >>

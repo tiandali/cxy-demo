@@ -17,6 +17,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "SearchEntity",
   data() {
@@ -33,6 +34,8 @@ export default {
     },
     queryEntity(value) {
       console.log("搜索的value: ", value);
+      // axios.get("http://192.168.2.101/hello");
+      axios.get("/testpatato?user_text=%E5%9C%9F%E8%B1%86");
       this.$router.push("/info");
     }
   },
@@ -46,7 +49,7 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: column;
-  background: #00071a;
+  background: url("../../assets/img/bg.png") #00071a no-repeat;
   .inputContent {
     padding-top: 200px;
     margin: 0 392px;
@@ -55,19 +58,20 @@ export default {
   .caseBar {
     margin-top: 20px;
     height: 30px;
+    line-height: 30px;
     display: flex;
     align-content: center;
-
-    .fontStyle,
-    i {
-      color: #999;
+    .fontStyle {
+      color: #daf2f6;
     }
     .caseStyle {
       margin-right: 20px;
-      color: #daf2f6;
+      color: #5a7095;
     }
     i {
+      line-height: 30px;
       font-size: 24px;
+      color: #c52275 !important;
     }
   }
 

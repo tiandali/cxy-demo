@@ -21,9 +21,11 @@
         </el-popover>
 
         <span class="fontStyle">例如:</span>
-        <span class="caseStyle" v-for="item in cases" v-bind:key="item">{{
+        <span class="caseStyle" v-for="item in cases" v-bind:key="item">
+          {{
           item
-        }}</span>
+          }}
+        </span>
       </div>
     </div>
   </div>
@@ -58,7 +60,8 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: column;
-  background: #00071a;
+  background: url("../../assets/img/bg.png") #00071a no-repeat;
+
   .inputContent {
     padding-top: 200px;
     margin: 0 392px;
