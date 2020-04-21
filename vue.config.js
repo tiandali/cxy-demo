@@ -36,6 +36,18 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    proxy: {
+      // 配置跨域
+      '/api': { // 代理接口前缀为/api的请求
+        target: 'http://192.168.0.145:8000', // 需要代理到的目标地址
+        ws: true,
+        changOrigin: true, // 是否跨域
+        pathRewrite: {
+          '^/api': '' // 重写路径
+        }
+      }
+    },
+
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {
@@ -81,7 +93,7 @@ module.exports = {
       .end()
 
     config
-    // https://webpack.js.org/configuration/devtool/#development
+      // https://webpack.js.org/configuration/devtool/#development
       .when(process.env.NODE_ENV === 'development',
         config => config.devtool('cheap-source-map')
       )
@@ -93,7 +105,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()

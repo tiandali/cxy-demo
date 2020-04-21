@@ -18,6 +18,7 @@
 </template>
 <script>
 import axios from "axios";
+import request from "@/utils/request";
 export default {
   name: "SearchEntity",
   data() {
@@ -34,8 +35,12 @@ export default {
     },
     queryEntity(value) {
       console.log("搜索的value: ", value);
-      // axios.get("http://192.168.2.101/hello");
-      axios.get("/testpatato?user_text=%E5%9C%9F%E8%B1%86");
+
+      request({
+        url: "/api/testpatato",
+        method: "get",
+        params: { user_text: "土豆" }
+      });
       this.$router.push("/info");
     }
   },
