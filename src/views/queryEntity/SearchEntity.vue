@@ -19,8 +19,10 @@
 <script>
 import axios from "axios";
 import request from "@/utils/request";
+// console.log("222222222", this.$route.params.id);
 export default {
   name: "SearchEntity",
+  props: ["id"],
   data() {
     return {
       inputdata: "",

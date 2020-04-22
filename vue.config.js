@@ -50,6 +50,18 @@ module.exports = {
 
     before: require('./mock/mock-server.js')
   },
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          'primary-color': '#C52275',
+          'link-color': '#1DA57A',
+          'border-radius-base': '2px'
+        },
+        javascriptEnabled: true
+      }
+    }
+  },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.

@@ -49,11 +49,14 @@ export const constantRoutes = [
     redirect: "/dashboard",
     children: [
       {
-        path: "dashboard",
+        path: "/dashboard",
         name: "实体查询",
         component: () => import("../views/queryEntity/SearchEntity"),
         // component: () => import("@/views/dashboard/index"),
-        meta: { title: "实体查询", icon: "iconfont iconziyuan1" }
+        props: (route) => ({ id: route.query.id }),
+        meta: {
+          title: "实体查询", icon: "iconfont iconziyuan1",
+        }
       },
       {
         path: "/info",
@@ -79,14 +82,14 @@ export const constantRoutes = [
     ]
   },
   {
-    path: "/form2",
+    path: "/KnowledgeSearch",
     component: Layout,
     children: [
       {
-        path: "index2",
-        name: "知识概览",
+        path: "index",
+        name: "知识问答",
         component: () => import("../views/knowledgeOverview/KnowledgeSearch"),
-        meta: { title: "知识概览", icon: "iconfont iconziyuan4" }
+        meta: { title: "知识问答", icon: "iconfont iconziyuan5" }
       },
       {
         path: "overview",
@@ -98,20 +101,20 @@ export const constantRoutes = [
     ]
   },
   {
-    path: "/form3",
+    path: "/quiz",
     component: Layout,
     children: [
       {
-        path: "index3",
-        name: "知识问答",
-        component: () => import("@/views/form/index"),
-        meta: { title: "知识问答", icon: "iconfont iconziyuan5" }
+        path: "index",
+        name: "知识概览",
+        component: () => import("../views/quiz/Quiz"),
+        meta: { title: "知识概览", icon: "iconfont iconziyuan4" }
       }
     ]
   },
 
   // 404 page must be placed at the end !!!
-  { path: "*", redirect: "/404", hidden: true }
+  { path: "*", redirect: "/dashboard", hidden: true }
 ];
 
 const createRouter = () =>
