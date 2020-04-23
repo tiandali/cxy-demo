@@ -15,7 +15,9 @@
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml"
   },
   "dependencies": {
+    "ant-design-vue": "^1.5.3",
     "axios": "0.18.1",
+    "babel-plugin-import": "^1.13.0",
     "echarts": "^4.7.0",
     "element-ui": "2.13.0",
     "js-cookie": "2.2.0",

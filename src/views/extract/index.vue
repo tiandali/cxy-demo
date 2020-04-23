@@ -16,19 +16,10 @@
         <div class="title">识别结果</div>
         <div class="contentStyle" v-html="inputdata2"></div>
       </div>
-      <div>
-        <div class="title">分词属性结果</div>
-        <el-input type="textarea" autosize v-model="inputdata"></el-input>
-      </div>
-      <div>
-        <div class="title">属性数据</div>
-        <Barchart />
-      </div>
     </div>
   </div>
 </template>
 <script>
-import Barchart from "./Barchart";
 let str = "玉米与传统的水稻、小麦等粮食作物相比";
 function delData(str, data) {
   const label = "(" + str + ")";
@@ -42,8 +33,6 @@ function delData(str, data) {
 }
 
 export default {
-  name: "IdentifyEntity",
-  components: { Barchart },
   data() {
     return {
       msg:

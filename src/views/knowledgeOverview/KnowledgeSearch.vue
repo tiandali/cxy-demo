@@ -47,7 +47,7 @@ export default {
     },
     queryEntity(value) {
       console.log("搜索的value: ", value);
-      this.$router.push("/form2/overview");
+      this.$router.push("/KnowledgeSearch/overview");
     }
   },
   computed: {}

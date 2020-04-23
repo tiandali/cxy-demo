@@ -46,7 +46,10 @@ export default {
       sample: "土豆"
     };
   },
-  created() {},
+  created() {
+    this.sample = this.$route.query.id;
+    console.log("$route.id", this.$route.query.id);
+  },
   methods: {
     queryEntity(value) {
       console.log("value: ", value);

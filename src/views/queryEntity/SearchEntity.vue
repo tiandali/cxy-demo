@@ -21,13 +21,19 @@ import axios from "axios";
 import request from "@/utils/request";
 export default {
   name: "SearchEntity",
+  props: ["id"],
   data() {
     return {
       inputdata: "",
       cases: ["土豆", "玉米", "猪肉", "水稻"]
     };
   },
-  created() {},
+  created() {
+    this.inputdata = this.$route.query.id;
+  },
+  mounted() {
+    console.log("$route.id", this.$route.query.id);
+  },
   methods: {
     getInputValue(value) {
       console.log("输入框当前的value: ", value);
@@ -35,13 +41,18 @@ export default {
     },
     queryEntity(value) {
       console.log("搜索的value: ", value);
-      // axios.get("http://192.168.2.101/hello");
-      request({
-        url: "/api/testpatato",
-        method: "get",
-        params: { user_text: "土豆" }
+
+      // request({
+      //   url: "/api/testpatato",
+      //   method: "get",
+      //   params: { user_text: "土豆" }
+      // });
+      this.$router.push({
+        path: "/info",
+        query: {
+          id: value
+        }
       });
-      this.$router.push("/info");
     }
   },
   computed: {}
@@ -78,9 +89,6 @@ export default {
       font-size: 24px;
       color: #c52275 !important;
     }
-  }
-
-  .el-input {
   }
 }
 </style>

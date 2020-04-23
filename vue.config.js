@@ -37,16 +37,30 @@ module.exports = {
       errors: true
     },
     proxy: {
-      "/api": {
-        target: "http://192.168.0.146:8000",
-        changeOrigin: true,
+      // 配置跨域
+      '/api': { // 代理接口前缀为/api的请求
+        target: 'http://192.168.0.145:8000', // 需要代理到的目标地址
         ws: true,
+        changOrigin: true, // 是否跨域
         pathRewrite: {
-          "^/api": ""
+          '^/api': '' // 重写路径
         }
       }
     },
-    before: require("./mock/mock-server.js")
+
+    before: require('./mock/mock-server.js')
+  },
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          'primary-color': '#C52275',
+          'link-color': '#1DA57A',
+          'border-radius-base': '2px'
+        },
+        javascriptEnabled: true
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -92,42 +106,46 @@ module.exports = {
 
     config
       // https://webpack.js.org/configuration/devtool/#development
-      .when(process.env.NODE_ENV === "development", config =>
-        config.devtool("cheap-source-map")
-      );
+      .when(process.env.NODE_ENV === 'development',
+        config => config.devtool('cheap-source-map')
+      )
 
-    config.when(process.env.NODE_ENV !== "development", config => {
-      config
-        .plugin("ScriptExtHtmlWebpackPlugin")
-        .after("html")
-        .use("script-ext-html-webpack-plugin", [
-          {
-            // `runtime` must same as runtimeChunk name. default is `runtime`
-            inline: /runtime\..*\.js$/
-          }
-        ])
-        .end();
-      config.optimization.splitChunks({
-        chunks: "all",
-        cacheGroups: {
-          libs: {
-            name: "chunk-libs",
-            test: /[\\/]node_modules[\\/]/,
-            priority: 10,
-            chunks: "initial" // only package third parties that are initially dependent
-          },
-          elementUI: {
-            name: "chunk-elementUI", // split elementUI into a single package
-            priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-            test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
-          },
-          commons: {
-            name: "chunk-commons",
-            test: resolve("src/components"), // can customize your rules
-            minChunks: 3, //  minimum common number
-            priority: 5,
-            reuseExistingChunk: true
-          }
+    config
+      .when(process.env.NODE_ENV !== 'development',
+        config => {
+          config
+            .plugin('ScriptExtHtmlWebpackPlugin')
+            .after('html')
+            .use('script-ext-html-webpack-plugin', [{
+              // `runtime` must same as runtimeChunk name. default is `runtime`
+              inline: /runtime\..*\.js$/
+            }])
+            .end()
+          config
+            .optimization.splitChunks({
+              chunks: 'all',
+              cacheGroups: {
+                libs: {
+                  name: 'chunk-libs',
+                  test: /[\\/]node_modules[\\/]/,
+                  priority: 10,
+                  chunks: 'initial' // only package third parties that are initially dependent
+                },
+                elementUI: {
+                  name: 'chunk-elementUI', // split elementUI into a single package
+                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+                },
+                commons: {
+                  name: 'chunk-commons',
+                  test: resolve('src/components'), // can customize your rules
+                  minChunks: 3, //  minimum common number
+                  priority: 5,
+                  reuseExistingChunk: true
+                }
+              }
+            })
+          config.optimization.runtimeChunk('single')
         }
       });
       config.optimization.runtimeChunk("single");
