@@ -9,7 +9,7 @@
         <SummaryArea />
       </div>
       <div class="relationArea">
-        <RelationArea />
+        <RelationArea :name="sample" />
       </div>
       <div class="chartArea">
         <div class="polarChart">

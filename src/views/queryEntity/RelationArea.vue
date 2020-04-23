@@ -6,11 +6,14 @@
 <script>
 import echarts from "echarts";
 import { chartdata } from "../test";
-console.log("chartdata: ", chartdata);
 
 export default {
   name: "RelationArea",
   props: {
+    name: {
+      type: String,
+      default: ""
+    },
     className: {
       type: String,
       default: "chart"
@@ -49,7 +52,7 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(document.getElementById(this.id));
-      const source = { name: "土豆", itemStyle: { color: "#C52275" } };
+      const source = { name: this.name, itemStyle: { color: "#C52275" } };
       const color = [
         "#c23531",
         "#2f4554",
