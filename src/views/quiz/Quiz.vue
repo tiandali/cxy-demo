@@ -2,11 +2,7 @@
   <div class="quizmain">
     <div class="leftTree">
       <div>
-        <a-tree
-          showLine="true"
-          :defaultExpandedKeys="['0-0-0', '0-0-1', '0-0-2']"
-          @select="onSelect"
-        >
+        <a-tree showLine :defaultExpandedKeys="['0-0-0', '0-0-1', '0-0-2']" @select="onSelect">
           <a-icon slot="icon" type="carry-out" />
           <a-tree-node key="0-0">
             <a-icon slot="icon" type="carry-out" />
@@ -61,18 +57,18 @@
           <el-table :data="tableData" style="width: 100%">
             <el-table-column label="实体名称">
               <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                <span style="margin-left: 10px">{{ scope.row.name }}</span>
               </template>
             </el-table-column>
             <el-table-column label="实体类型">
               <template slot-scope="scope">
-                <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                <el-tag size="medium">{{ scope.row.type }}</el-tag>
               </template>
             </el-table-column>
             <el-table-column label="出现次数">
               <template slot-scope="scope">
                 <div class="rowlayout">
-                  <span>{{scope.row.address}}</span>
+                  <span>{{scope.row.num}}</span>
                   <el-button
                     size="mini"
                     type="danger"
@@ -98,24 +94,24 @@ export default {
       showTable: false,
       tableData: [
         {
-          date: "感冒",
-          name: "疾病",
-          address: "111"
+          name: "感冒",
+          type: "疾病",
+          num: "111"
         },
         {
-          date: "土豆",
-          name: "食物",
-          address: "222"
+          name: "土豆",
+          type: "食物",
+          num: "222"
         },
         {
-          date: "猪肉",
-          name: "食物",
-          address: "333"
+          name: "猪肉",
+          type: "食物",
+          num: "333"
         },
         {
-          date: "草莓",
-          name: "水果",
-          address: "444"
+          name: "草莓",
+          type: "水果",
+          num: "444"
         }
       ]
     };
@@ -131,9 +127,9 @@ export default {
     handleSearch(index, row) {
       console.log(index, row);
       this.$router.push({
-        path: "/dashboard/dali",
+        path: "/info",
         query: {
-          id: "dali"
+          id: row.name
         }
       });
     },

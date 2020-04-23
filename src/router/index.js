@@ -63,6 +63,7 @@ export const constantRoutes = [
         name: "实体详情",
         component: () => import("../views/queryEntity/EntityInfo"),
         // component: () => import("@/views/dashboard/index"),
+        props: (route) => ({ id: route.query.id }),
         hidden: true
       }
     ]
@@ -80,6 +81,20 @@ export const constantRoutes = [
         meta: { title: "实体识别", icon: "iconfont iconziyuan2" }
       }
     ]
+  },
+  {
+    path: "/extract",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        name: "实体关系提取",
+        component: () => import("../views/extract/index"),
+        // component: () => import("@/views/form/index"),
+        meta: { title: "实体关系提取", icon: "iconfont iconziyuan2" }
+      }
+    ]
+
   },
   {
     path: "/KnowledgeSearch",

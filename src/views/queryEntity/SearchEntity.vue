@@ -29,7 +29,12 @@ export default {
       cases: ["土豆", "玉米", "猪肉", "水稻"]
     };
   },
-  created() {},
+  created() {
+    this.inputdata = this.$route.query.id;
+  },
+  mounted() {
+    console.log("$route.id", this.$route.query.id);
+  },
   methods: {
     getInputValue(value) {
       console.log("输入框当前的value: ", value);
@@ -38,12 +43,17 @@ export default {
     queryEntity(value) {
       console.log("搜索的value: ", value);
 
-      request({
-        url: "/api/testpatato",
-        method: "get",
-        params: { user_text: "土豆" }
+      // request({
+      //   url: "/api/testpatato",
+      //   method: "get",
+      //   params: { user_text: "土豆" }
+      // });
+      this.$router.push({
+        path: "/info",
+        query: {
+          id: value
+        }
       });
-      this.$router.push("/info");
     }
   },
   computed: {}
