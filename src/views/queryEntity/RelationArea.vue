@@ -6,6 +6,7 @@
 <script>
 import echarts from "echarts";
 import { chartdata } from "../test";
+import { mapState } from "vuex";
 
 export default {
   name: "RelationArea",
@@ -66,34 +67,62 @@ export default {
         "#546570",
         "#c4ccd3"
       ];
-      const chartNode = chartdata.map((e, i) => {
-        const { entity2 = {} } = e;
-        const title = entity2.title ? entity2.title : "";
-        const img = entity2.image ? entity2.image : "";
+      // const chartNode = chartdata.map((e, i) => {
+      //   const { entity2 = {} } = e;
+      //   const title = entity2.title ? entity2.title : "";
+      //   const img = entity2.image ? entity2.image : "";
+      //   const colorIndex = i % 12;
+      //   const nodes = {
+      //     name: title,
+      //     symbol: img ? `image://${img}` : "circle",
+      //     symbolSize: 100,
+      //     itemStyle: { color: color[colorIndex] }
+      //   };
+      //   return nodes;
+      // });
+      // let hash = {};
+      // let nodes = chartNode.reduce(function(item, next) {
+      //   hash[next.name] ? "" : (hash[next.name] = true && item.push(next));
+      //   return item;
+      // }, []);
+
+      const nodes = this.relData.nodes.map((e, i) => {
+        const { img } = e;
         const colorIndex = i % 12;
-        const nodes = {
-          name: title,
+        return {
+          name: e.title,
           symbol: img ? `image://${img}` : "circle",
           symbolSize: 100,
           itemStyle: { color: color[colorIndex] }
         };
-        return nodes;
       });
-      let hash = {};
-      let nodes = chartNode.reduce(function(item, next) {
-        hash[next.name] ? "" : (hash[next.name] = true && item.push(next));
-        return item;
-      }, []);
-
-      const links = chartdata.map((e, i) => {
-        const { rel = {}, entity2 = {} } = e;
-        const title = entity2.title ? entity2.title : "";
-        const type = rel.type ? rel.type : "";
+      console.log("nodes: ", JSON.parse(JSON.stringify(nodes)));
+      // const links = chartdata.map((e, i) => {
+      //   const { rel = {}, entity2 = {} } = e;
+      //   const title = entity2.title ? entity2.title : "";
+      //   const type = rel.type ? rel.type : "";
+      //   const colorIndex = i % 12;
+      //   const links = {
+      //     source: source.name,
+      //     target: title,
+      //     name: type,
+      //     label: {
+      //       align: "center",
+      //       fontSize: 12
+      //     },
+      //     lineStyle: {
+      //       color: color[colorIndex]
+      //     }
+      //   };
+      //   return links;
+      // });
+      const links = this.relData.links.map((e, i) => {
+        const { source, target, rel } = e;
         const colorIndex = i % 12;
-        const links = {
-          source: source.name,
-          target: title,
-          name: type,
+        return {
+          source,
+          target,
+          name: rel,
           label: {
             align: "center",
             fontSize: 12
@@ -102,19 +131,30 @@ export default {
             color: color[colorIndex]
           }
         };
-        return links;
       });
-      let categories = chartdata.map((e, i) => {
-        const { rel = {}, entity2 = {} } = e;
-        const type = rel.type ? rel.type : "";
-        const color = i % 2 > 0 ? "#ff7d18" : "#006acc";
-        const categories = {
-          name: type
-        };
-        return categories;
-      });
+      console.log("links: ", JSON.parse(JSON.stringify(links)));
+      // let categories = chartdata.map((e, i) => {
+      //   const { rel = {} } = e;
+      //   const type = rel.type ? rel.type : "";
+      //   const categories = {
+      //     name: type
+      //   };
+      //   return categories;
+      // });
+      let hash = {};
+
+      let categories = this.relData.links
+        .map((e, i) => {
+          return { name: e.rel };
+        })
+        .reduce((item, next) => {
+          hash[next.name] ? "" : (hash[next.name] = true && item.push(next));
+          return item;
+        }, []);
+      console.log("categories: ", categories);
+
       let data = {
-        nodes: [source, ...nodes],
+        nodes: [...nodes],
         links: [...links]
       };
 
@@ -175,6 +215,9 @@ export default {
         ]
       });
     }
+  },
+  computed: {
+    ...mapState("entity", ["relData"])
   }
 };
 </script>

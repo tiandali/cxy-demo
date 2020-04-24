@@ -43,11 +43,12 @@ export default {
   },
   data() {
     return {
-      sample: "土豆"
+      sample: ""
     };
   },
   created() {
     this.sample = this.$route.query.id;
+
     console.log("$route.id", this.$route.query.id);
   },
   methods: {

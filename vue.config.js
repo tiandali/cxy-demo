@@ -40,7 +40,7 @@ module.exports = {
       // 配置跨域
       "/api": {
         // 代理接口前缀为/api的请求
-        target: "http://192.168.0.145:8000", // 需要代理到的目标地址
+        target: "http://192.168.0.109:8080", // 需要代理到的目标地址
         ws: true,
         changOrigin: true, // 是否跨域
         pathRewrite: {

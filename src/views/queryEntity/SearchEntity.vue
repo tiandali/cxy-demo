@@ -19,6 +19,8 @@
 <script>
 import axios from "axios";
 import request from "@/utils/request";
+import { mapState } from "vuex";
+
 export default {
   name: "SearchEntity",
   props: ["id"],
@@ -32,20 +34,20 @@ export default {
     this.inputdata = this.$route.query.id;
   },
   mounted() {
-    console.log("$route.id", this.$route.query.id);
+    const test = this.relData.nodes;
+    console.log("test: ", test);
   },
   methods: {
     getInputValue(value) {
-      console.log("输入框当前的value: ", value);
       this.inputdata = value;
     },
     queryEntity(value) {
       console.log("搜索的value: ", value);
-
+      this.$store.dispatch("entity/getRelData", { title: "土豆" });
       // request({
-      //   url: "/api/testpatato",
+      //   url: "/api/schema",
       //   method: "get",
-      //   params: { user_text: "土豆" }
+      //   params: { title: "土豆" }
       // });
       this.$router.push({
         path: "/info",
@@ -55,7 +57,9 @@ export default {
       });
     }
   },
-  computed: {}
+  computed: {
+    ...mapState("entity", ["relData"])
+  }
 };
 </script>
 
