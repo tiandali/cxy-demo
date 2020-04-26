@@ -1,6 +1,7 @@
 <template>
   <div class="quizmain">
     <div class="leftTree">
+      <div class="triangle"></div>
       <div>
         <a-tree showLine :defaultExpandedKeys="['0-0-0', '0-0-1', '0-0-2']" @select="onSelect">
           <a-icon slot="icon" type="carry-out" />
@@ -46,6 +47,7 @@
     </div>
     <div class="rightMain">
       <div class="rightContent">
+        <div class="triangle"></div>
         <div class="titleName">{{titleName}}</div>
         <div class="picMain">
           <img src="../../assets/img/filepic.png" alt />
@@ -154,9 +156,20 @@ export default {
     width: 450px;
     height: calc(100vh - 150px);
     overflow-y: auto;
-
     flex-direction: column;
     padding: 30px;
+    position: relative;
+    .triangle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      width: 0;
+      height: 0;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #13c6e2 transparent transparent #13c6e2;
+    }
   }
   .rightMain {
     display: flex;
@@ -173,6 +186,18 @@ export default {
     flex: 1;
     padding: 30px;
     flex-direction: column;
+    position: relative;
+    .triangle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      width: 0;
+      height: 0;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #13c6e2 transparent transparent #13c6e2;
+    }
 
     .titleName {
       height: 24px;

@@ -2,14 +2,10 @@
   <div class="knowMain">
     <div class="leftCon">
       <div class="topInput">
-        <el-input
-          v-model="sample"
-          suffix-icon="el-icon-search"
-          size="mini"
-          @change="queryEntity"
-        ></el-input>
+        <el-input v-model="sample" suffix-icon="el-icon-search" size="mini" @change="queryEntity"></el-input>
       </div>
       <div class="middleList">
+        <div class="triangle"></div>
         <div class="answer">答案</div>
         <div
           class="list"
@@ -22,21 +18,15 @@
           @click="clickIndex = index"
           @mouseover="hoverIndex = index"
           @mouseout="hoverIndex = -1"
-        >
-          {{ item }}
-        </div>
+        >{{ item }}</div>
         <div class="pageStyle">
-          <el-pagination background layout="prev, pager, next" :total="50">
-          </el-pagination>
+          <el-pagination background layout="prev, pager, next" :total="50"></el-pagination>
         </div>
       </div>
     </div>
     <div class="rightCon">
-      <div
-        :id="id"
-        :class="className"
-        :style="{ height: height, width: width }"
-      />
+      <div class="triangle"></div>
+      <div :id="id" :class="className" :style="{ height: height, width: width }" />
     </div>
   </div>
 </template>
@@ -301,12 +291,24 @@ export default {
     flex-direction: column;
     margin-right: 30px;
     .middleList {
+      position: relative;
       display: flex;
       flex: 1;
       flex-direction: column;
       background: #02102d;
       margin-top: 30px;
       padding-left: 30px;
+      .triangle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        width: 0;
+        height: 0;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #13c6e2 transparent transparent #13c6e2;
+      }
       .answer {
         color: #fff;
         margin-top: 20px;
@@ -362,8 +364,20 @@ export default {
     }
   }
   .rightCon {
+    position: relative;
     display: flex;
     flex: 1;
+    .triangle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      width: 0;
+      height: 0;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #13c6e2 transparent transparent #13c6e2;
+    }
   }
 }
 </style>

@@ -62,7 +62,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 .infoMain {
-  min-height: calc(100vh - 140px);
+  min-height: calc(100vh - 80px);
   display: flex;
   flex: 1;
   flex-direction: column;

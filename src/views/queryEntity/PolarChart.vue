@@ -1,11 +1,11 @@
 <template>
   <div class="container">
+    <div class="triangle"></div>
     <div :id="id" :class="className" :style="{height:height,width:width}" />
   </div>
 </template>
 <script>
 import echarts from "echarts";
-console.log("echarts: ", echarts);
 
 export default {
   name: "PolarChart",
@@ -149,7 +149,19 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 .container {
+  position: relative;
   display: flex;
   flex: 1;
+  .triangle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 0;
+    height: 0;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #13c6e2 transparent transparent #13c6e2;
+  }
 }
 </style>
