@@ -1,7 +1,7 @@
 <template>
   <div class="areaMain">
     <div class="pic">
-      <el-image style="width: 100%; height: 218px" :src="url" :fit="fit"></el-image>
+      <el-image style="width: 100%; height: 218px" :src="url"></el-image>
     </div>
     <div class="sub">
       <p>{{sub}}</p>

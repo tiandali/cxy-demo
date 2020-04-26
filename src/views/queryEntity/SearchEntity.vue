@@ -43,12 +43,8 @@ export default {
     },
     queryEntity(value) {
       console.log("搜索的value: ", value);
-      this.$store.dispatch("entity/getRelData", { title: "土豆" });
-      // request({
-      //   url: "/api/schema",
-      //   method: "get",
-      //   params: { title: "土豆" }
-      // });
+      this.$store.dispatch("entity/getRelData", { title: value });
+
       this.$router.push({
         path: "/info",
         query: {

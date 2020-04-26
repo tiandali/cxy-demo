@@ -7,8 +7,8 @@
 <script>
 import echarts from "echarts";
 import Graph from "echarts/lib/data/Graph";
-import { chartdata } from "../test2";
-import { mapState } from "vuex";
+// import { chartdata } from "../test2";
+// import { mapState } from "vuex";
 const Edge = Graph.Edge;
 const Node = Graph.Node;
 
@@ -85,14 +85,45 @@ export default {
     height: {
       type: String,
       default: "100%"
+    },
+    relData: {
+      type: Object,
+      default: function() {
+        return {};
+      }
     }
   },
   data() {
-    return {};
+    return {
+      chart: "",
+      data: {}
+    };
   },
-  created() {},
+  created() {
+    console.log("created重新加载啦");
+    console.log("created.relData: ", this.relData);
+  },
   mounted() {
-    this.initChart();
+    console.log("mounted重新加载啦2");
+    console.log("mounted.relData: ", this.relData);
+  },
+  watch: {
+    relData: {
+      handler(newVal, oldVal) {
+        console.log("oldVal: ", oldVal);
+        console.log("newVal: ", newVal);
+        if (this.chart) {
+          if (newVal) {
+            this.initChart(newVal);
+          } else {
+            this.initChart(oldVal);
+          }
+        } else {
+          this.initChart(newVal);
+        }
+      },
+      deep: true //对象内部属性的监听，关键。
+    }
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -102,10 +133,12 @@ export default {
     this.chart = null;
   },
   methods: {
-    initChart() {
+    initChart(relData) {
       this.chart = echarts.init(document.getElementById(this.id));
+      this.chart.clear();
+      window.addEventListener("resize", this.chart.resize);
       const source = { name: this.name, itemStyle: { color: "#C52275" } };
-      const chartdata = this.relData || {};
+      const chartdata = relData || {};
       const chartNodes = chartdata.nodes ? chartdata.nodes : [];
       const chartLinks = chartdata.links ? chartdata.links : [];
       const color = [
@@ -181,70 +214,73 @@ export default {
         nodes: [...nodes],
         links: [...echartLinks]
       };
-      this.chart.setOption({
-        backgroundColor: "#02102D",
-        title: {
-          text: "知识图谱"
-        },
-        legend: [
-          {
-            // selectedMode: "single",
-            data: categories.map(x => x.name)
-            // icon: "circle"
-          }
-        ],
-        series: [
-          {
-            type: "graph",
-            layout: "force",
-            symbolSize: 58,
-            draggable: true,
-            roam: true,
-            force: {
-              edgeLength: 120,
-              repulsion: 100, //节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
-              gravity: 0.03, //节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
-              edgeLength: [300, 300], //边的两个节点之间的距离，这个距离也会受 repulsion。[10, 50] 。值越小则长度越长
-              layoutAnimation: true
-            },
-            focusNodeAdjacency: true,
-            categories: categories,
-            edgeSymbol: ["", "arrow"],
-            // edgeSymbolSize: [80, 10],
-            edgeLabel: {
-              normal: {
-                show: true,
-                textStyle: {
-                  fontSize: 20
-                },
-                formatter(x) {
-                  return x.data.name;
+      this.chart.setOption(
+        {
+          backgroundColor: "#02102D",
+          title: {
+            text: "知识图谱"
+          },
+          legend: [
+            {
+              // selectedMode: "single",
+              data: categories.map(x => x.name)
+              // icon: "circle"
+            }
+          ],
+          series: [
+            {
+              type: "graph",
+              layout: "force",
+              symbolSize: 58,
+              draggable: true,
+              roam: true,
+              force: {
+                edgeLength: 120,
+                repulsion: 100, //节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
+                gravity: 0.03, //节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
+                edgeLength: [300, 300], //边的两个节点之间的距离，这个距离也会受 repulsion。[10, 50] 。值越小则长度越长
+                layoutAnimation: true
+              },
+              focusNodeAdjacency: true,
+              categories: categories,
+              edgeSymbol: ["", "arrow"],
+              // edgeSymbolSize: [80, 10],
+              edgeLabel: {
+                normal: {
+                  show: true,
+                  textStyle: {
+                    fontSize: 20
+                  },
+                  formatter(x) {
+                    return x.data.name;
+                  }
                 }
-              }
-            },
-            label: {
-              show: true
-            },
-            data: data.nodes,
-            edges: data.links,
-            animationDurationUpdate: 1500,
-            animationEasingUpdate: "cubicOut"
-            // animationEasing: "elasticOut",
-            // animationEasingUpdate: "elasticOut",
-            // animationDelay(idx) {
-            //   return idx * 20;
-            // },
-            // animationDelayUpdate(idx) {
-            //   return idx * 20;
-            // },
-          }
-        ]
-      });
+              },
+              label: {
+                show: true
+              },
+              data: data.nodes,
+              edges: data.links,
+              animationDurationUpdate: 1500,
+              animationEasingUpdate: "cubicOut"
+              // animationEasing: "elasticOut",
+              // animationEasingUpdate: "elasticOut",
+              // animationDelay(idx) {
+              //   return idx * 20;
+              // },
+              // animationDelayUpdate(idx) {
+              //   return idx * 20;
+              // },
+            }
+          ]
+        },
+        true
+      );
     }
-  },
-  computed: {
-    ...mapState("entity", ["relData"])
   }
+  // computed: {
+  //   ...mapState("entity", ["relData"])
+  // }
 };
 </script>
 

@@ -47,7 +47,13 @@ export default {
     },
     queryEntity(value) {
       console.log("搜索的value: ", value);
-      this.$router.push("/KnowledgeSearch/overview");
+      this.$store.dispatch("entity/getRelData", { title: value });
+      this.$router.push({
+        path: "/KnowledgeSearch/overview",
+        query: {
+          id: value
+        }
+      });
     }
   },
   computed: {}

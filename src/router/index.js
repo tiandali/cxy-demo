@@ -55,22 +55,7 @@ export const constantRoutes = [
         hidden: true
       }
     ]
-  },
-  {
-    path: "/login",
-    component: () => import("@/views/login/index"),
-    hidden: true
-  },
-
-  {
-    path: "/404",
-    component: () => import("@/views/404"),
-    hidden: true
-  },
-
-
-
-  {
+  }, {
     path: "/identifyEntity",
     component: Layout,
     children: [
@@ -112,6 +97,7 @@ export const constantRoutes = [
         name: "实体详情",
         component: () => import("../views/knowledgeOverview/Overview"),
         // component: () => import("@/views/dashboard/index"),
+        props: (route) => ({ id: route.query.id }),
         hidden: true
       }
     ]
@@ -128,6 +114,20 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: "/login",
+    component: () => import("@/views/login/index"),
+    hidden: true
+  },
+  {
+    path: "/404",
+    component: () => import("@/views/404"),
+    hidden: true
+  },
+
+
+
+
 
   // 404 page must be placed at the end !!!
   { path: "*", redirect: "/dashboard", hidden: true }
