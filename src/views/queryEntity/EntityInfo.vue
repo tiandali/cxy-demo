@@ -91,7 +91,6 @@ export default {
     .relationArea {
       flex: 1 0 515px;
       margin-right: 30px;
-      background: gray;
     }
     .chartArea {
       flex: 1 0 265px;

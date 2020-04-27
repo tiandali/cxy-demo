@@ -38,12 +38,24 @@ export const constantRoutes = [
     children: [
       {
         path: "/dashboard",
+        name: "首页",
+        component: () => import("../views/home/HomePage"),
+        meta: { title: "首页", icon: "iconfont iconziyuan4" }
+      }
+    ]
+  },
+  {
+    path: "/entity",
+    component: Layout,
+    children: [
+      {
+        path: "/search",
         name: "实体查询",
         component: () => import("../views/queryEntity/SearchEntity"),
-        // component: () => import("@/views/dashboard/index"),
-        props: (route) => ({ id: route.query.id }),
+        props: route => ({ id: route.query.id }),
         meta: {
-          title: "实体查询", icon: "iconfont iconziyuan1",
+          title: "实体查询",
+          icon: "iconfont iconziyuan1"
         }
       },
       {
@@ -51,11 +63,12 @@ export const constantRoutes = [
         name: "实体详情",
         component: () => import("../views/queryEntity/EntityInfo"),
         // component: () => import("@/views/dashboard/index"),
-        props: (route) => ({ id: route.query.id }),
+        props: route => ({ id: route.query.id }),
         hidden: true
       }
     ]
-  }, {
+  },
+  {
     path: "/identifyEntity",
     component: Layout,
     children: [
@@ -80,7 +93,6 @@ export const constantRoutes = [
         meta: { title: "实体关系提取", icon: "iconfont iconziyuan2" }
       }
     ]
-
   },
   {
     path: "/KnowledgeSearch",
@@ -97,7 +109,7 @@ export const constantRoutes = [
         name: "实体详情",
         component: () => import("../views/knowledgeOverview/Overview"),
         // component: () => import("@/views/dashboard/index"),
-        props: (route) => ({ id: route.query.id }),
+        props: route => ({ id: route.query.id }),
         hidden: true
       }
     ]
@@ -124,10 +136,6 @@ export const constantRoutes = [
     component: () => import("@/views/404"),
     hidden: true
   },
-
-
-
-
 
   // 404 page must be placed at the end !!!
   { path: "*", redirect: "/dashboard", hidden: true }
