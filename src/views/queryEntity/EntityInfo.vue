@@ -31,6 +31,7 @@ import RelationArea from "./RelationArea";
 import PolarChart from "./PolarChart";
 import BarChart from "./BarChart";
 import lineCharts from "./lineCharts";
+import { mapState } from "vuex";
 
 export default {
   name: "EntityInfo",
@@ -43,19 +44,22 @@ export default {
   },
   data() {
     return {
-      sample: ""
+      sample: "",
+      chartData: {}
     };
   },
   created() {
     this.sample = this.$route.query.id;
-
-    console.log("$route.id", this.$route.query.id);
   },
+  mounted() {},
   methods: {
     queryEntity(value) {
-      console.log("value: ", value);
       this.sample = value;
+      this.$store.dispatch("entity/getRelData", { title: value });
     }
+  },
+  computed: {
+    ...mapState("entity", ["relData"])
   }
 };
 </script>

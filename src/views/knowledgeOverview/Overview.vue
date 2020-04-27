@@ -124,6 +124,20 @@ export default {
   mounted() {
     this.initChart();
   },
+  watch: {
+    "$store.state.entity.relData"(newVal, oldVal) {
+      // deep: true, //对象内部属性的监听，关键。
+      if (this.chart) {
+        if (newVal) {
+          this.initChart(newVal);
+        } else {
+          this.initChart(oldVal);
+        }
+      } else {
+        this.initChart(newVal);
+      }
+    }
+  },
   beforeDestroy() {
     if (!this.chart) {
       return;
@@ -133,11 +147,13 @@ export default {
   },
   methods: {
     queryEntity(value) {
-      console.log("value: ", value);
       this.sample = value;
+      this.$store.dispatch("entity/getRelData", { title: value });
     },
     initChart() {
       this.chart = echarts.init(document.getElementById(this.id));
+      this.chart.clear();
+      window.addEventListener("resize", this.chart.resize);
       const chartdata = this.relData || {};
       const chartNodes = chartdata.nodes ? chartdata.nodes : [];
       const chartLinks = chartdata.links ? chartdata.links : [];

@@ -7,7 +7,6 @@ const mutations = {
   SET_REL: (state, data) => {
     console.log('data: ', data);
     state.relData = data;
-
   },
 }
 const actions = {

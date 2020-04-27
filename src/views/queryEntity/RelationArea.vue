@@ -8,7 +8,7 @@
 import echarts from "echarts";
 import Graph from "echarts/lib/data/Graph";
 // import { chartdata } from "../test2";
-// import { mapState } from "vuex";
+import { mapState } from "vuex";
 const Edge = Graph.Edge;
 const Node = Graph.Node;
 
@@ -85,12 +85,6 @@ export default {
     height: {
       type: String,
       default: "100%"
-    },
-    relData: {
-      type: Object,
-      default: function() {
-        return {};
-      }
     }
   },
   data() {
@@ -99,30 +93,22 @@ export default {
       data: {}
     };
   },
-  created() {
-    console.log("created重新加载啦");
-    console.log("created.relData: ", this.relData);
-  },
+  created() {},
   mounted() {
-    console.log("mounted重新加载啦2");
-    console.log("mounted.relData: ", this.relData);
+    this.initChart(this.relData);
   },
   watch: {
-    relData: {
-      handler(newVal, oldVal) {
-        console.log("oldVal: ", oldVal);
-        console.log("newVal: ", newVal);
-        if (this.chart) {
-          if (newVal) {
-            this.initChart(newVal);
-          } else {
-            this.initChart(oldVal);
-          }
-        } else {
+    "$store.state.entity.relData"(newVal, oldVal) {
+      // deep: true, //对象内部属性的监听，关键。
+      if (this.chart) {
+        if (newVal) {
           this.initChart(newVal);
+        } else {
+          this.initChart(oldVal);
         }
-      },
-      deep: true //对象内部属性的监听，关键。
+      } else {
+        this.initChart(newVal);
+      }
     }
   },
   beforeDestroy() {
@@ -133,12 +119,12 @@ export default {
     this.chart = null;
   },
   methods: {
-    initChart(relData) {
+    initChart() {
       this.chart = echarts.init(document.getElementById(this.id));
       this.chart.clear();
       window.addEventListener("resize", this.chart.resize);
       const source = { name: this.name, itemStyle: { color: "#C52275" } };
-      const chartdata = relData || {};
+      const chartdata = this.relData || {};
       const chartNodes = chartdata.nodes ? chartdata.nodes : [];
       const chartLinks = chartdata.links ? chartdata.links : [];
       const color = [
@@ -164,7 +150,6 @@ export default {
           itemStyle: { color: color[colorIndex] }
         };
       });
-      console.log("nodes: ", nodes);
       const links = chartLinks.map((e, i) => {
         const { source, target, rel } = e;
         const colorIndex = i % 12;
@@ -182,7 +167,6 @@ export default {
           }
         };
       });
-      console.log("links: ", links);
       let hash = {};
       let categories = chartdata.links
         .map((e, i) => {
@@ -192,7 +176,6 @@ export default {
           hash[next.name] ? "" : (hash[next.name] = true && item.push(next));
           return item;
         }, []);
-      console.log("categories: ", categories);
       const CURVENESS_LIST = Array.from({ length: 20 }).map(
         (_, i) => (((i < 10 ? i + 2 : i - 9) - (i % 2)) / 10) * (i % 2 ? -1 : 1)
       );
@@ -209,7 +192,6 @@ export default {
         link.lineStyle.curveness = Math.random();
         echartLinks.push(link);
       });
-      console.log("echartLinks: ", echartLinks);
       let data = {
         nodes: [...nodes],
         links: [...echartLinks]
@@ -263,24 +245,16 @@ export default {
               edges: data.links,
               animationDurationUpdate: 1500,
               animationEasingUpdate: "cubicOut"
-              // animationEasing: "elasticOut",
-              // animationEasingUpdate: "elasticOut",
-              // animationDelay(idx) {
-              //   return idx * 20;
-              // },
-              // animationDelayUpdate(idx) {
-              //   return idx * 20;
-              // },
             }
           ]
         },
         true
       );
     }
+  },
+  computed: {
+    ...mapState("entity", ["relData"])
   }
-  // computed: {
-  //   ...mapState("entity", ["relData"])
-  // }
 };
 </script>
 

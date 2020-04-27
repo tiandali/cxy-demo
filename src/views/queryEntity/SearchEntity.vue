@@ -35,16 +35,13 @@ export default {
   },
   mounted() {
     const test = this.relData.nodes;
-    console.log("test: ", test);
   },
   methods: {
     getInputValue(value) {
       this.inputdata = value;
     },
     queryEntity(value) {
-      console.log("搜索的value: ", value);
       this.$store.dispatch("entity/getRelData", { title: value });
-
       this.$router.push({
         path: "/info",
         query: {
