@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="triangle"></div>
-    <div :id="id" :class="className" :style="{height:height,width:width}" />
+    <div :id="id" :class="className" :style="{height:height,width:width}"></div>
   </div>
 </template>
 <script>
@@ -140,42 +140,53 @@ export default {
         "#546570",
         "#c4ccd3"
       ];
-      const nodes = chartNodes.map((e, i) => {
-        const { img } = e;
-        const colorIndex = i % 12;
-        return {
-          name: e.title,
-          symbol: img ? `image://${img}` : "circle",
-          symbolSize: 58,
-          itemStyle: { color: color[colorIndex] }
-        };
-      });
-      const links = chartLinks.map((e, i) => {
-        const { source, target, rel } = e;
-        const colorIndex = i % 12;
-        return {
-          source,
-          target,
-          name: rel,
-          value: (i + 1) * 80,
-          label: {
-            align: "center",
-            fontSize: 12
-          },
-          lineStyle: {
-            color: color[colorIndex]
-          }
-        };
-      });
+      const nodes =
+        chartNodes.length > 0
+          ? chartNodes.map((e, i) => {
+              const { img } = e;
+              const colorIndex = i % 12;
+              return {
+                name: e.title,
+                symbol: img ? `image://${img}` : "circle",
+                symbolSize: 58,
+                itemStyle: { color: color[colorIndex] }
+              };
+            })
+          : [];
+      const links =
+        chartLinks.length > 0
+          ? chartLinks.map((e, i) => {
+              const { source, target, rel } = e;
+              const colorIndex = i % 12;
+              return {
+                source,
+                target,
+                name: rel,
+                value: (i + 1) * 80,
+                label: {
+                  align: "center",
+                  fontSize: 12
+                },
+                lineStyle: {
+                  color: color[colorIndex]
+                }
+              };
+            })
+          : [];
       let hash = {};
-      let categories = chartdata.links
-        .map((e, i) => {
-          return { name: e.rel };
-        })
-        .reduce((item, next) => {
-          hash[next.name] ? "" : (hash[next.name] = true && item.push(next));
-          return item;
-        }, []);
+      let categories =
+        chartLinks.length > 0
+          ? chartLinks
+              .map((e, i) => {
+                return { name: e.rel };
+              })
+              .reduce((item, next) => {
+                hash[next.name]
+                  ? ""
+                  : (hash[next.name] = true && item.push(next));
+                return item;
+              }, [])
+          : [];
       const CURVENESS_LIST = Array.from({ length: 20 }).map(
         (_, i) => (((i < 10 ? i + 2 : i - 9) - (i % 2)) / 10) * (i % 2 ? -1 : 1)
       );
@@ -196,6 +207,28 @@ export default {
         nodes: [...nodes],
         links: [...echartLinks]
       };
+      const showNoData = {
+        type: "text",
+        left: "center",
+        top: "center",
+        z: 999,
+        $action: "replace",
+        style: {
+          fill: "#fff",
+          text: ["暂无数据"],
+          font: "12px Microsoft YaHei"
+        }
+      };
+      const hiddenNoData = {
+        type: "text",
+        left: "center",
+        top: "center",
+        style: {
+          fill: "#353535",
+          text: [""],
+          font: "12px Microsoft YaHei"
+        }
+      };
       this.chart.setOption(
         {
           backgroundColor: "#02102D",
@@ -209,6 +242,7 @@ export default {
               // icon: "circle"
             }
           ],
+          graphic: nodes.length === 0 ? showNoData : hiddenNoData,
           series: [
             {
               type: "graph",
@@ -273,6 +307,9 @@ export default {
     border-width: 5px;
     border-style: solid;
     border-color: #13c6e2 transparent transparent #13c6e2;
+  }
+  .nodataStyle {
+    color: #13c6e2;
   }
 }
 </style>

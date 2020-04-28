@@ -56,6 +56,12 @@ export default {
     queryEntity(value) {
       this.sample = value;
       this.$store.dispatch("entity/getRelData", { title: value });
+      this.$router.push({
+        path: "/info",
+        query: {
+          id: value
+        }
+      });
     }
   },
   computed: {
