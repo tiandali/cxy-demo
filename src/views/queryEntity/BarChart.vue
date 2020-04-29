@@ -74,7 +74,8 @@ export default {
             }
           },
 
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri"]
+          data: ["太空", "核", "导弹防御", "网电对抗","制海作战","制空作战"]
+
         },
         yAxis: {
           type: "value",
@@ -93,7 +94,7 @@ export default {
         },
         series: [
           {
-            data: [9, 3, 6, 9, 5],
+            data: [21, 8, 9, 30, 6,5],
             type: "bar",
             barWidth: 8
           }

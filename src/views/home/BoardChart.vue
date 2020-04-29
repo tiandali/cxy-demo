@@ -126,13 +126,15 @@ export default {
       const filterChartData = this.selectData.filter(
         e => e.value === this.value
       )[0];
-      const data = filterChartData ? filterChartData.chartData : [];
+      const origindata = filterChartData ? filterChartData.chartData : [];
+      const data=origindata.map(e=>(e/10000))
       let option = {
         backgroundColor: "#02102D",
         color: ["#13C6E2", "#61a0a8", "#d48265", "#91c7ae", "#749f83"],
         grid: {
           left: "10%",
-          bottom: "10%"
+          bottom: "10%",
+          right:"8%"
         },
         title: {
           show: true,

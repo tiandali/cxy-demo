@@ -5,12 +5,13 @@
         placeholder="请输入内容"
         prefix-icon="el-icon-search"
         @change="queryEntity"
+        @keyup.enter.native="queryEntity"
         v-model="inputdata"
         @input="getInputValue"
       ></el-input>
       <div class="caseBar">
         <span class="fontStyle">例如:</span>
-        <span class="caseStyle" v-for="item in cases" v-bind:key="item">{{item}}</span>
+        <span class="caseStyle" @click="selectItem" v-for="item in cases" v-bind:key="item">{{item}}</span>
         <i class="el-icon-warning-outline"></i>
       </div>
     </div>
@@ -27,7 +28,7 @@ export default {
   data() {
     return {
       inputdata: "",
-      cases: ["土豆", "玉米", "猪肉", "水稻"]
+      cases: ["太空体系", "核体系", "导弹防御体系", "网电对抗体系","制海作战体系","制空作战体系"]
     };
   },
   created() {
@@ -37,10 +38,20 @@ export default {
     const test = this.relData.nodes;
   },
   methods: {
+    
+selectItem(e){
+  console.log('e: ', e);
+  const name=e.target.innerText;
+  console.log('name: ', name);
+  this.inputdata=name;
+
+},
     getInputValue(value) {
       this.inputdata = value;
     },
-    queryEntity(value) {
+    queryEntity(e) {
+      const value=e.target.value?e.target.value:e;
+      console.log('value: ', value);
       this.$store.dispatch("entity/getRelData", { title: value });
       this.$router.push({
         path: "/info",

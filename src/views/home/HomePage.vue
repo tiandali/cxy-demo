@@ -102,8 +102,8 @@ export default {
   .topMain,
   .bottomMain {
     display: flex;
-    height: 440px;
-    padding: 30px 25px 10px 25px;
+    height: 430px;
+    padding: 30px 25px 0 25px;
     margin: 0;
     .chartStyle {
       margin: 0 25px;
