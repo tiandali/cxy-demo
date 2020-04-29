@@ -46,7 +46,7 @@ export default {
   components: { SidebarItem, Logo },
   data() {
     return {
-      title: "农业知识图谱",
+      title: "美军体系经费知识库",
       imgurl:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       company: "深圳航天科工集团有限公司",

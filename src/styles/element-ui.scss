@@ -15,7 +15,6 @@
   display: none;
 }
 
-
 // to fixed https://github.com/ElemeFE/element/issues/2461
 .el-dialog {
   transform: none;
@@ -39,7 +38,26 @@
 // dropdown
 .el-dropdown-menu {
   a {
-    display: block
+    display: block;
+  }
+}
+.selectdropdown {
+  .el-select-dropdown__list {
+  }
+  .el-select-dropdown__item {
+    height: 24px;
+    line-height: 24px;
+  }
+  .el-select-dropdown__list {
+    .el-select-dropdown__item {
+      &:hover {
+        background-color: #c52275;
+        color: #fff;
+      }
+    }
+    .el-select-dropdown__item.selected {
+      color: #c52275;
+    }
   }
 }
 
