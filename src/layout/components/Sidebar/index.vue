@@ -92,6 +92,7 @@ export default {
     height: 80px;
     line-height: 72px;
     align-content: center;
+    height: 200px;
 
     .iconfont {
       margin-left: 14px;

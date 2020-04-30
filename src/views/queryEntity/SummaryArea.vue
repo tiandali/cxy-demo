@@ -1,13 +1,42 @@
 <template>
   <div class="areaMain">
     <div class="pic">
-      <el-image style="width: 100%; height: 218px" :src="url"></el-image>
+      <img
+        v-if="this.$route.query.id==='太空体系'"
+        style="width: 100%; height: 218px;"
+        src="../../assets/img/太空.png"
+      />
+      <img
+        v-else-if="this.$route.query.id==='核体系'"
+        style="width: 100%; height: 218px;"
+        src="../../assets/img/核.png"
+      />
+      <img
+        v-else-if="this.$route.query.id==='制空作战体系'"
+        style="width: 100%; height: 218px;"
+        src="../../assets/img/制空.png"
+      />
+      <img
+        v-else-if="this.$route.query.id==='导弹防御体系'"
+        style="width: 100%; height: 218px;"
+        src="../../assets/img/导弹.png"
+      />
+
+      <img v-else style="width: 100%; height: 218px;" src="../../assets/img/太空.png" />
     </div>
     <div class="sub">
-      <p>{{sub}}</p>
+      <p v-if="this.$route.query.id==='太空体系'">{{sub}}</p>
+      <p v-else-if="this.$route.query.id==='核体系'">{{sub2}}</p>
+      <p v-else-if="this.$route.query.id==='制空作战体系'">{{sub}}</p>
+      <p v-else-if="this.$route.query.id==='导弹防御体系'">{{sub2}}</p>
+      <p v-else-if="this.$route.query.id==='制海作战体系'">{{sub}}</p>
+      <p v-else>{{sub2}}</p>
     </div>
-    <div class="same">
+    <div class="same" v-if="showtext===true">
       <div class="textStyle" v-for="same in sames" :key="same">{{same}}</div>
+    </div>
+    <div class="same" v-else>
+      <div class="textStyle" v-for="same2 in sames2" :key="same2">{{same2}}</div>
     </div>
   </div>
 </template>
@@ -16,14 +45,27 @@ export default {
   name: "SummaryArea",
   data() {
     return {
-      url:
-        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      // url:
+      // "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       sub:
-        "马铃薯（学名：Solanum tuberosum L.），属茄科，一年生草本植物，块茎可供食用，是全球第四大重要的粮食作物，仅次于小麦、稻谷和玉米。马铃薯又名山药蛋、洋芋、洋山芋、洋芋头、香山芋、洋番芋、山洋芋、阳芋、地蛋、土豆等。马铃薯在不同国度，名称称谓也不一样，如美国称爱尔兰豆薯、俄罗斯称荷兰薯、法国称地苹果、德国称地梨、意大利称地豆、秘鲁称巴巴等。与小麦、稻谷、玉米、高粱并称为世界五大作物。马铃薯块茎含有大量的淀粉，能为人体提供丰富的热量，且富含蛋白质、氨基酸及多种维生素、矿物质，尤其是其维生素含量是所有粮食作物中最全的，在欧美国家特别是北美，马铃薯早就成为第二主食。马铃薯原产于南美洲安第斯山区，人工栽培历史最早可追溯到大约公元前8000年到5000年的秘鲁南部地区。马铃薯主要生产国有中国、俄罗斯、印度、乌克兰、美国等。中国是世界马铃薯总产最多的国家。 ",
-      sames: ["粮食作物", "淀粉产物", "茄属", "双子叶植物纲", "管状花目"]
+        "美国太空军（英语：United States Space Force）是美国空军部下属的一个独立部队，其主要职责是为美国在外太空执行军事任务。它是自1947年以来美国空军独立以来成立的第六个军事部门和第一个新出现的部队军种，也是国防部三大军事部门之一下属的一个部门,太空军由空军部直接领导，向国防部长报告，由总统任命并获得参议院授权，太空军军种主官是太空作战部长，负责对太空军各部门进行监督。 ",
+      sames: ["美国太空军", "美国空军部", "外太空", "军事任务", "国防部"],
+      sub2:
+        "美国海军（英语：United States Navy，缩写：USN或U.S. Navy），是一个美军军种，负责管理所有与海军有关的事务。其职责为：“配备、训练和武装一支有能力赢得战争、阻止入侵和保证海域自由的海军战斗部队。”]美国海军目前有近500,000现役和预备役海军军人、2852艘现役大小军舰。海军旗下设有空中部队，拥有超过3,700架飞机，主要包括F/A-18E/F超级大黄蜂式打击战斗机及SH-60海鹰直升机，使得美国海军成为全球第四大的空战部队。",
+      sames2: ["美军军种", "海军", "战斗机", "SH-60海鹰直升机"],
+      showtext: true
     };
   },
-  created() {},
+  created() {
+    const name = this.$route.query.id;
+    console.log("name: ", name);
+    const type = ["太空体系", "制空作战体系", "制海作战体系"];
+    if (type.includes(name)) {
+      this.showtext = true;
+    } else {
+      this.showtext = false;
+    }
+  },
   methods: {}
 };
 </script>
@@ -51,7 +93,7 @@ export default {
   }
   .sub,
   p {
-    height: 280px;
+    max-height: 300px;
     margin-bottom: 20px;
     color: #999;
     font-size: 14px;

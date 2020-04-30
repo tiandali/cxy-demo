@@ -94,26 +94,26 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: "/KnowledgeSearch",
-    component: Layout,
-    children: [
-      {
-        path: "index",
-        name: "知识问答",
-        component: () => import("../views/knowledgeOverview/KnowledgeSearch"),
-        meta: { title: "知识问答", icon: "iconfont iconziyuan5" }
-      },
-      {
-        path: "overview",
-        name: "实体详情",
-        component: () => import("../views/knowledgeOverview/Overview"),
-        // component: () => import("@/views/dashboard/index"),
-        props: route => ({ id: route.query.id }),
-        hidden: true
-      }
-    ]
-  },
+  // {
+  //   path: "/KnowledgeSearch",
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: "index",
+  //       name: "知识问答",
+  //       component: () => import("../views/knowledgeOverview/KnowledgeSearch"),
+  //       meta: { title: "知识问答", icon: "iconfont iconziyuan5" }
+  //     },
+  //     {
+  //       path: "overview",
+  //       name: "实体详情",
+  //       component: () => import("../views/knowledgeOverview/Overview"),
+  //       // component: () => import("@/views/dashboard/index"),
+  //       props: route => ({ id: route.query.id }),
+  //       hidden: true
+  //     }
+  //   ]
+  // },
   {
     path: "/quiz",
     component: Layout,

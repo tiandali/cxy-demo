@@ -28,7 +28,14 @@ export default {
   data() {
     return {
       inputdata: "",
-      cases: ["太空体系", "核体系", "导弹防御体系", "网电对抗体系","制海作战体系","制空作战体系"]
+      cases: [
+        "太空体系",
+        "核体系",
+        "导弹防御体系",
+        "网电对抗体系",
+        "制海作战体系",
+        "制空作战体系"
+      ]
     };
   },
   created() {
@@ -38,20 +45,18 @@ export default {
     const test = this.relData.nodes;
   },
   methods: {
-    
-selectItem(e){
-  console.log('e: ', e);
-  const name=e.target.innerText;
-  console.log('name: ', name);
-  this.inputdata=name;
-
-},
+    selectItem(e) {
+      console.log("e: ", e);
+      const name = e.target.innerText;
+      console.log("name: ", name);
+      this.inputdata = name;
+    },
     getInputValue(value) {
       this.inputdata = value;
     },
     queryEntity(e) {
-      const value=e.target.value?e.target.value:e;
-      console.log('value: ', value);
+      const value = e.target.value ? e.target.value : e;
+      console.log("value: ", value);
       this.$store.dispatch("entity/getRelData", { title: value });
       this.$router.push({
         path: "/info",
@@ -73,7 +78,7 @@ selectItem(e){
   display: flex;
   flex: 1;
   flex-direction: column;
-  background: url("../../assets/img/bg.png") #00071a no-repeat;
+  background: url("../../assets/img/bg.png") #00071a no-repeat fixed center;
   .inputContent {
     padding-top: 200px;
     margin: 0 392px;

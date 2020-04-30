@@ -76,7 +76,7 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: column;
-  background: #18191d;
+  background: url("../../assets/img/bg.png") #00071a no-repeat fixed center;
   padding: 30px;
   .searchArea {
     margin-bottom: 20px;
@@ -104,17 +104,17 @@ export default {
       flex-direction: column;
       .polarChart {
         display: flex;
-        flex: 0 0 254px;
+        flex: 1 0 254px;
         margin-bottom: 30px;
       }
       .lineChart {
         display: flex;
-        flex: 0 0 176px;
+        flex: 1 0 220px;
         margin-bottom: 30px;
       }
       .barChart {
         display: flex;
-        flex: 0 0 160px;
+        flex: 1 0 220px;
         background: blue;
       }
     }

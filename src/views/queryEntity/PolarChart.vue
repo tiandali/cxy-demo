@@ -45,7 +45,7 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(document.getElementById(this.id));
-      let max = 6;
+      let max = 30;
       let min = 0;
       this.chart.setOption({
         backgroundColor: "#02102D",
@@ -55,7 +55,8 @@ export default {
           right: "5%"
         },
         color: ["#13C6E2"],
-        tooltip: {},
+        tooltip: { backgroundColor: "#fff", textStyle: "#999" },
+
         radar: {
           name: {
             textStyle: {
@@ -69,22 +70,32 @@ export default {
           scale: true,
           indicator: [
             {
-              name: "分布",
+              name: "太空体系",
               max: max,
               min: min
             },
             {
-              name: "热量",
+              name: "核体系",
               max: max,
               min: min
             },
             {
-              name: "价值",
+              name: "导弹防御体系",
               max: max,
               min: min
             },
             {
-              name: "单价",
+              name: "网电对抗体系",
+              max: max,
+              min: min
+            },
+            {
+              name: "制海作战体系",
+              max: max,
+              min: min
+            },
+            {
+              name: "制空作战体系",
               max: max,
               min: min
             }
@@ -92,6 +103,7 @@ export default {
           splitArea: {
             show: false
           },
+
           splitLine: {
             show: false
           }
@@ -103,7 +115,7 @@ export default {
         angleAxis: {
           min: 0,
           max: 360,
-          interval: 4,
+          interval: 5,
           clockwise: true,
           axisTick: {
             show: false
@@ -112,7 +124,11 @@ export default {
             show: false
           },
           axisLine: {
-            show: false
+            show: false,
+            lineStyle: {
+              color: "rgba(19, 198, 226, 0.1)"
+              // color: "#444368"
+            }
           },
           splitLine: {
             show: false
@@ -121,7 +137,7 @@ export default {
         radiusAxis: {
           min: min,
           max: max,
-          interval: 2
+          interval: 10
         },
         series: [
           {
@@ -133,9 +149,15 @@ export default {
             lineStyle: {
               width: 1
             },
+            lineStyle: {
+              // 单项线条样式。
+              normal: {
+                opacity: 0.2 // 图形透明度
+              }
+            },
             data: [
               {
-                value: [5, 1, 4, 4],
+                value: [21, 18, 9, 15, 25, 18],
                 name: "预算分配"
               }
             ]

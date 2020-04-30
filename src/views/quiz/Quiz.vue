@@ -3,46 +3,15 @@
     <div class="leftTree">
       <div class="triangle"></div>
       <div class="tree">
-        <a-tree showLine :defaultExpandedKeys="['0-0-0', '0-0-1', '0-0-2']" @select="onSelect">
-          <a-icon slot="icon" type="carry-out" />
-          <a-tree-node key="0-0">
-            <a-icon slot="icon" type="carry-out" />
-            <span slot="title" class="treeroot" style="color: #5a7095">首页</span>
-            <a-tree-node title="一级分类一" key="0-0-0">
-              <a-icon slot="icon" type="carry-out" />
-              <a-tree-node title="二级分类一" key="0-0-0-0">
-                <a-icon slot="icon" type="carry-out" />
-                <a-tree-node title="三级分类一" key="0-0-0-1">
-                  <a-icon slot="icon" type="carry-out" />
-                </a-tree-node>
-              </a-tree-node>
-              <a-tree-node title="二级分类二" key="0-0-0-1">
-                <a-icon slot="icon" type="carry-out" />
-                <a-tree-node title="三级分类一" key="0-0-1-0">
-                  <a-icon slot="icon" type="carry-out" />
-                </a-tree-node>
-              </a-tree-node>
-              <a-tree-node title="二级分类三" key="0-0-0-2">
-                <a-icon slot="icon" type="carry-out" />
-                <a-tree-node title="三级分类一" key="0-0-4-0">
-                  <a-icon slot="icon" type="carry-out" />
-                </a-tree-node>
-              </a-tree-node>
-            </a-tree-node>
-            <a-tree-node title="一级分类二" key="0-0-1">
-              <a-icon slot="icon" type="carry-out" />
-              <a-tree-node title="二级分类二" key="0-0-2-2">
-                <a-icon slot="icon" type="carry-out" />
-              </a-tree-node>
-            </a-tree-node>
-            <a-tree-node title="一级分类三" key="0-0-2">
-              <a-icon slot="icon" type="carry-out" />
-              <a-tree-node title="二级分类三" key="0-0-2-0">
-                <a-icon slot="icon" type="carry-out" />
-              </a-tree-node>
-            </a-tree-node>
-          </a-tree-node>
-        </a-tree>
+        <a-tree
+          showLine
+          @expand="onExpand"
+          :expandedKeys="expandedKeys"
+          :autoExpandParent="autoExpandParent"
+          @select="onSelect"
+          :selectedKeys="selectedKeys"
+          :treeData="treeData"
+        />
       </div>
     </div>
     <div class="rightMain">
@@ -50,22 +19,16 @@
         <div class="triangle"></div>
         <div class="titleName">{{titleName}}</div>
         <div class="picMain">
-          <!-- <img src="../../assets/img/filepic.png" alt /> -->
-          <!-- <embed
-            src="https://pan.baidu.com/disk/pdfview?path=%2F.pdf%2F%E9%A9%AC%E5%B0%94%E5%85%8B%E6%96%AF%EF%BC%9A%E6%B4%BB%E7%9D%80%E4%B8%BA%E4%BA%86%E8%AE%B2%E8%BF%B0%E7%94%9F%E6%B4%BB.pdf"
-            width="100%"
-            height="100%"
-            alt
-          />-->
-          <!-- <embed
-            src="https://netdisk-pan.baidupcs.com/disk/docview?bdstoken=a110f19e65cd987a2722b8a651c3554b&uk=708071480&path=%2F%E8%8C%B6c%E9%A2%9Ccyys%2F%E8%8C%B6%E9%A2%9C%E6%96%87%E6%A1%A3%E5%85%B7%E4%BD%93%E9%85%8D%E6%96%B9%2F1%E8%8C%B6%E9%A2%9C%E6%82%A6%E8%89%B2%E6%96%B0%E5%93%81%E9%85%8D%E6%96%B9.xlsx"
-            width="100%"
-            height="100%"
-            alt
-          />-->
-
           <iframe
-            src="http://view.officeapps.live.com/op/view.aspx?src=https://www.xiangya.com.cn/uploadfiles/20190823/20190823152130306.xls?web=1"
+            v-if="ischangefile"
+            src="http://view.officeapps.live.com/op/view.aspx?src=http://www.yiwugogo.com/2.xlsx?web=1"
+            width="100%"
+            height="100%"
+            frameborder="1"
+          ></iframe>
+          <iframe
+            v-else
+            src="http://view.officeapps.live.com/op/view.aspx?src=http://www.yiwugogo.com/1.xlsx?web=1"
             width="100%"
             height="100%"
             frameborder="1"
@@ -105,52 +68,87 @@
   </div>
 </template>
 <script>
+import { treeData } from "./treeData";
 export default {
   name: "Quiz",
   data() {
     return {
+      ischangefile: true,
       showLine: true,
       showIcon: false,
-      titleName: "选中的title",
+      titleName: "卫星通信系统",
       showTable: false,
+      expandedKeys: ["0-0"],
+      autoExpandParent: true,
+      selectedKeys: ["太空-0"],
+      treeData,
       tableData: [
         {
-          name: "感冒",
-          type: "疾病",
-          num: "111"
+          name: "卫星",
+          type: "太空体系",
+          num: "84"
         },
         {
-          name: "土豆",
-          type: "食物",
-          num: "222"
+          name: "原子弹",
+          type: "核体系",
+          num: "42"
         },
         {
-          name: "猪肉",
-          type: "食物",
-          num: "333"
+          name: "火箭",
+          type: "导弹防御体系",
+          num: "536"
         },
         {
-          name: "草莓",
-          type: "水果",
-          num: "444"
+          name: "网络",
+          type: "网电对抗体系",
+          num: "354"
+        },
+        {
+          name: "航空母舰",
+          type: "制海作战体系",
+          num: "457"
+        },
+        {
+          name: "轰炸机",
+          type: "制空作战体系",
+          num: "844"
         }
       ]
     };
   },
-  created() {},
+  created() {
+    this.treeData = treeData;
+  },
+  mounted() {
+    this.treeData = treeData;
+  },
+  watch: {
+    treeData(newval, oldval) {
+      this.treeData = treeData;
+    }
+  },
   methods: {
+    onExpand(expandedKeys) {
+      // if not set autoExpandParent to false, if children expanded, parent can not collapse.
+      // or, you can remove all expanded children keys.
+      this.expandedKeys = expandedKeys;
+      this.autoExpandParent = false;
+    },
     onSelect(selectedKeys, info) {
-      console.log("selected", selectedKeys, info);
+      const { selectedNodes } = info;
+      const test1 = selectedNodes[0] ? selectedNodes[0].data : {};
+      const test2 = test1.props ? test1.props : {};
+      const selectName = test2.title ? test2.title : {};
+      this.titleName = selectName;
+      this.selectedKeys = selectedKeys;
+      this.ischangefile = !this.ischangefile;
     },
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
+    handleEdit(index, row) {},
     handleSearch(index, row) {
-      console.log(index, row);
       this.$router.push({
         path: "/info",
         query: {
-          id: row.name
+          id: row.type
         }
       });
     },
@@ -175,6 +173,7 @@ export default {
     width: 450px;
     height: calc(100vh - 150px);
     overflow-y: auto;
+    overflow-y: overlay;
     flex-direction: column;
     padding: 30px;
     position: relative;
@@ -282,9 +281,10 @@ export default {
   .rightMain {
     display: flex;
     flex: 1;
-    width: calc(100vw- 650px);
+    width: calc(100vw- 700px);
     height: calc(100vh - 150px);
     overflow: auto;
+    overflow: overlay;
     background: #02102d;
     flex-direction: column;
     padding-right: 20px;
@@ -317,7 +317,8 @@ export default {
     }
     .picMain {
       display: flex;
-      flex: 1;
+      // flex: 1;
+      height: 580px;
     }
     .btnstyle {
       display: flex;

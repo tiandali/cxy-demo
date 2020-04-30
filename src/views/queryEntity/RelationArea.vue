@@ -233,15 +233,21 @@ export default {
         {
           backgroundColor: "#02102D",
           title: {
-            text: "知识图谱"
+            text: "知识图谱",
+            left: "20px",
+            top: "20px"
           },
-          legend: [
-            {
-              // selectedMode: "single",
-              data: categories.map(x => x.name)
-              // icon: "circle"
-            }
-          ],
+          grid: {
+            left: "10%",
+            bottom: "20%"
+          },
+          // legend: [
+          //   {
+          //     // selectedMode: "single",
+          //     data: categories.map(x => x.name)
+          //     // icon: "circle"
+          //   }
+          // ],
           graphic: nodes.length === 0 ? showNoData : hiddenNoData,
           series: [
             {

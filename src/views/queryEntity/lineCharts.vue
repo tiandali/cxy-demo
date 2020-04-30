@@ -51,10 +51,19 @@ export default {
           left: "10%",
           bottom: "20%"
         },
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+          },
+          backgroundColor: "#fff",
+          textStyle: "#999"
+        },
         title: {
           show: true,
-          text: "单价走势(元)",
-          right: "30px",
+          text: "耗资走势(元)",
+          left: "30px",
           top: "10px",
           textStyle: {
             color: "#fff",
@@ -67,14 +76,17 @@ export default {
           axisLine: {
             show: false
           },
+          axisTick: {
+            alignWithLabel: true
+          },
           axisLabel: {
             show: true,
             textStyle: {
-              color: "#5D5D5F"
+              color: "#5A7095"
             }
           },
 
-          data: ["太空", "核", "导弹防御", "网电对抗","制海作战","制空作战"]
+          data: ["太空", "核", "导弹防御", "网电对抗", "制海作战", "制空作战"]
         },
         yAxis: {
           type: "value",
@@ -87,15 +99,27 @@ export default {
           axisLabel: {
             show: true,
             textStyle: {
-              color: "#5D5D5F"
+              color: "#5A7095"
             }
           }
         },
         series: [
           {
-            data: [21, 8, 9, 30, 6,5],
+            data: [21, 8, 9, 30, 6, 5],
             type: "line",
-            areaStyle: {}
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 1,
+                  color: "#4095FD"
+                },
+                {
+                  offset: 0,
+                  color: "#0A6371"
+                }
+              ]),
+              opacity: 0.2
+            }
           }
         ]
       });

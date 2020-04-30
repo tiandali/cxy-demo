@@ -13,14 +13,13 @@
     <el-button class="btnStyle" @click="queryData" type="primary">提交</el-button>
     <div v-if="showData">
       <div>
-        <div class="title">识别结果</div>
-        <div class="contentStyle" v-html="inputdata2"></div>
+        <div class="title">提取结果</div>
+        <div class="contentStyle" v-html="extractData"></div>
       </div>
     </div>
   </div>
 </template>
 <script>
-let str = "玉米与传统的水稻、小麦等粮食作物相比";
 function delData(str, data) {
   const label = "(" + str + ")";
   let regexp = new RegExp(",", "g");
@@ -36,23 +35,34 @@ export default {
   data() {
     return {
       msg:
-        "请输出相关数据，进行实体识别\n如：玉米与传统的水稻、小麦等粮食作物相比，玉米具有很强的耐旱性、耐寒性、耐贫瘠性以及极好的环境适应性。玉米的营养价值较高，是优良的粮食作物。作为中国的高产粮食作物，玉米是畜牧业、养殖业、水产养殖业等的重要饲料来源，也是食品、医疗卫生、轻工业、化工业等的不可或缺的原料之一。 [3] 由于玉米资源极为丰富、廉价且易于获得，它们还具有许多生物活性，如抗氧化、抗肿瘤、降血糖...",
+        "美国太空军（英语：United States Space Force）是美国空军部下属的一个独立部队，其主要职责是为美国在外太空执行军事任务。它是自1947年以来美国空军独立以来成立的第六个军事部门和第一个新出现的部队军种，也是国防部三大军事部门之一下属的一个部门,太空军由空军部直接领导，向国防部长报告，由总统任命并获得参议院授权，太空军军种主官是太空作战部长，负责对太空军各部门进行监督。",
       inputdata:
-        "请输出相关数据，进行实体识别\n如：玉米与传统的水稻、小麦等粮食作物相比，玉米具有很强的耐旱性、耐寒性、耐贫瘠性以及极好的环境适应性。玉米的营养价值较高，是优良的粮食作物。作为中国的高产粮食作物，玉米是畜牧业、养殖业、水产养殖业等的重要饲料来源，也是食品、医疗卫生、轻工业、化工业等的不可或缺的原料之一。 [3] 由于玉米资源极为丰富、廉价且易于获得，它们还具有许多生物活性，如抗氧化、抗肿瘤、降血糖...",
-      inputdata2: `请输出相关数据，进行实体识别\n如：玉米与传统的水稻、小麦等粮食作物相比，玉米具有很强的耐旱性、耐寒性、耐贫瘠性以及极好的环境适应性。玉米的营养价值较高，是优良的粮食作物。作为中国的高产粮食作物，玉米是畜牧业、养殖业、水产养殖业等的重要饲料来源，也是食品、医疗卫生、轻工业、化工业等的不可或缺的原料之一。 [3] 由于玉米资源极为丰富、廉价且易于获得，它们还具有许多生物活性，如抗氧化、抗肿瘤、降血糖...`,
+        "美国太空军（英语：United States Space Force）是美国空军部下属的一个独立部队，其主要职责是为美国在外太空执行军事任务。它是自1947年以来美国空军独立以来成立的第六个军事部门和第一个新出现的部队军种，也是国防部三大军事部门之一下属的一个部门,太空军由空军部直接领导，向国防部长报告，由总统任命并获得参议院授权，太空军军种主官是太空作战部长，负责对太空军各部门进行监督。",
+      extractData: "",
       showData: false
     };
   },
   created() {},
   methods: {
     getInputValue(value) {
-      console.log("输入框当前的value: ", value);
       this.inputdata = value;
     },
     queryData(value) {
       this.showData = true;
-      const mark = "玉米,水稻,小麦";
-      this.inputdata2 = delData(mark, this.inputdata2);
+      // const mark = "美国太空军,美国空军部,外太空,军事任务,国防部";
+      // this.extractData = delData(mark, this.inputdata);
+      const info = {
+        force: "美国太空军",
+        Responsibilities: "外太空执行军事任务",
+        department: "美国空军部",
+        Higheroffice: "空军部，国防部"
+      };
+      this.extractData = `<div>
+      <div>部队:${info.force}<div>
+      <div>职责:${info.Responsibilities}<div>
+      <div>归属:${info.department}<div>
+      <div>上级部门:${info.Higheroffice}<div>
+      </div>`;
     }
   }
 };
