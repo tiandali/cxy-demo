@@ -42,11 +42,9 @@ export default {
   created() {},
   methods: {
     getInputValue(value) {
-      console.log("输入框当前的value: ", value);
       this.inputdata = value;
     },
     queryEntity(value) {
-      console.log("搜索的value: ", value);
       this.$store.dispatch("entity/getRelData", { title: value });
       this.$router.push({
         path: "/KnowledgeSearch/overview",
@@ -67,7 +65,6 @@ export default {
   flex: 1;
   flex-direction: column;
   background: url("../../assets/img/bg.png") #00071a no-repeat;
-
   .inputContent {
     padding-top: 200px;
     margin: 0 392px;
@@ -95,9 +92,6 @@ export default {
     i {
       font-size: 24px;
     }
-  }
-
-  .el-input {
   }
 }
 </style>

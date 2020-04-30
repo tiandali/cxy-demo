@@ -1,10 +1,15 @@
 <template>
   <div class="artMain">
+    <div class="selectType">
+      <el-radio-group v-model="radio" @change="changeContext">
+        <el-radio label="1">太空军</el-radio>
+        <el-radio label="2">海军</el-radio>
+      </el-radio-group>
+    </div>
     <i class="iconfont iconziyuan1"></i>
     <el-input
       type="textarea"
       autosize
-      :placeholder="msg"
       prefix-icon="el-icon-search"
       @change="queryData"
       v-model="inputdata"
@@ -46,8 +51,8 @@ export default {
   components: { Barchart },
   data() {
     return {
-      msg:
-        "美国太空军（英语：United States Space Force）是美国空军部下属的一个独立部队，其主要职责是为美国在外太空执行军事任务。它是自1947年以来美国空军独立以来成立的第六个军事部门和第一个新出现的部队军种，也是国防部三大军事部门之一下属的一个部门,太空军由空军部直接领导，向国防部长报告，由总统任命并获得参议院授权，太空军军种主官是太空作战部长，负责对太空军各部门进行监督。",
+      radio: "1",
+
       inputdata:
         "美国太空军（英语：United States Space Force）是美国空军部下属的一个独立部队，其主要职责是为美国在外太空执行军事任务。它是自1947年以来美国空军独立以来成立的第六个军事部门和第一个新出现的部队军种，也是国防部三大军事部门之一下属的一个部门,太空军由空军部直接领导，向国防部长报告，由总统任命并获得参议院授权，太空军军种主官是太空作战部长，负责对太空军各部门进行监督。",
       inputdata2: `美国太空军（英语：United States Space Force）是美国空军部下属的一个独立部队，其主要职责是为美国在外太空执行军事任务。它是自1947年以来美国空军独立以来成立的第六个军事部门和第一个新出现的部队军种，也是国防部三大军事部门之一下属的一个部门,太空军由空军部直接领导，向国防部长报告，由总统任命并获得参议院授权，太空军军种主官是太空作战部长，负责对太空军各部门进行监督。`,
@@ -56,14 +61,36 @@ export default {
   },
   created() {},
   methods: {
+    changeContext(val) {
+      console.log("val: ", val);
+      this.showData = false;
+      const tipdata =
+        "美国海军（英语：United States Navy，缩写：USN或U.S. Navy），是一个美军军种，负责管理所有与海军有关的事务。其职责为：“配备、训练和武装一支有能力赢得战争、阻止入侵和保证海域自由的海军战斗部队。”]美国海军目前有近500,000现役和预备役海军军人、2852艘现役大小军舰。海军旗下设有空中部队，拥有超过3,700架飞机，主要包括F/A-18E/F超级大黄蜂式打击战斗机及SH-60海鹰直升机，使得美国海军成为全球第四大的空战部队。";
+      if (val === "2") {
+        this.inputdata = tipdata;
+      } else {
+        this.inputdata =
+          "美国太空军（英语：United States Space Force）是美国空军部下属的一个独立部队，其主要职责是为美国在外太空执行军事任务。它是自1947年以来美国空军独立以来成立的第六个军事部门和第一个新出现的部队军种，也是国防部三大军事部门之一下属的一个部门,太空军由空军部直接领导，向国防部长报告，由总统任命并获得参议院授权，太空军军种主官是太空作战部长，负责对太空军各部门进行监督。";
+      }
+    },
     getInputValue(value) {
-      console.log("输入框当前的value: ", value);
       this.inputdata = value;
     },
     queryData(value) {
       this.showData = true;
       const mark = "美国太空军,美国空军部,外太空,军事任务,国防部";
-      this.inputdata2 = delData(mark, this.inputdata);
+      const mark2 =
+        "美军军种,海军,F/A-18E/F超级大黄蜂式打击战斗机,SH-60海鹰直升机";
+      const tipdata =
+        "美国海军（英语：United States Navy，缩写：USN或U.S. Navy），是一个美军军种，负责管理所有与海军有关的事务。其职责为：“配备、训练和武装一支有能力赢得战争、阻止入侵和保证海域自由的海军战斗部队。”]美国海军目前有近500,000现役和预备役海军军人、2852艘现役大小军舰。海军旗下设有空中部队，拥有超过3,700架飞机，主要包括F/A-18E/F超级大黄蜂式打击战斗机及SH-60海鹰直升机，使得美国海军成为全球第四大的空战部队。";
+      const text = this.inputdata.slice(0, 5);
+
+      if (text === "美国太空军") {
+        this.inputdata2 = delData(mark, this.inputdata);
+      } else {
+        this.inputdata = tipdata;
+        this.inputdata2 = delData(mark2, tipdata);
+      }
     }
   }
 };
@@ -77,13 +104,22 @@ export default {
   flex-direction: column;
   background: url("../../assets/img/bg.png") #00071a no-repeat;
 
-  padding: 160px 220px 0 220px;
+  padding: 160px 300px 0 300px;
+  .selectType {
+    margin-bottom: 12px;
+    .el-radio-group {
+      .el-radio__input.is-checked .el-radio__inner {
+        background: #c52275;
+        border-color: #c52275;
+      }
+    }
+  }
   i {
     font-size: 17px;
     color: #18191d;
     position: absolute;
-    left: 250px;
-    top: 168px;
+    left: 325px;
+    top: 197px;
     z-index: 99;
   }
   textarea {

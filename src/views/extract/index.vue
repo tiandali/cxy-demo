@@ -58,10 +58,11 @@ export default {
         Higheroffice: "空军部，国防部"
       };
       this.extractData = `<div>
-      <div>部队:${info.force}<div>
-      <div>职责:${info.Responsibilities}<div>
-      <div>归属:${info.department}<div>
-      <div>上级部门:${info.Higheroffice}<div>
+   
+      <div>(职责,美国太空军,外太空执行军事任务)<div>
+      <div>(归属,美国太空军,美国空军部)<div>
+      <div>(上级部门,美国太空军,空军部)<div>
+      <div>(上级部门,美国太空军,国防部)<div>
       </div>`;
     }
   }

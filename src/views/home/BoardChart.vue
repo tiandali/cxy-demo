@@ -52,14 +52,10 @@ export default {
       value: ""
     };
   },
-  created() {
-    console.log("created2: ");
-  },
+  created() {},
   mounted() {
-    console.log("mounted2: ");
     const defaultValue = this.selectData[0];
-    console.log("this.selectData: ", this.selectData);
-    console.log("mounted--defaultValue: ", defaultValue);
+
     this.value = defaultValue ? defaultValue.value : "";
     this.id = this.title;
     this.options = this.selectData.map(e => ({
@@ -70,19 +66,13 @@ export default {
   },
   watch: {
     selectData(newData, oldData) {
-      console.log("oldData: ", oldData);
-      console.log("newData: ", newData);
       this.queryData(newData);
     },
     value(newval, oldval) {
-      console.log("value--oldval: ", oldval);
-      console.log("value--newval: ", newval);
       this.value = newval;
       this.initChart();
     },
     title(newval, oldval) {
-      console.log("title--oldval: ", oldval);
-      console.log("title--newval: ", newval);
       this.title = newval;
       this.id = newval;
       this.initChart();
@@ -127,14 +117,14 @@ export default {
         e => e.value === this.value
       )[0];
       const origindata = filterChartData ? filterChartData.chartData : [];
-      const data=origindata.map(e=>(e/10000))
+      const data = origindata.map(e => e / 10000);
       let option = {
         backgroundColor: "#02102D",
         color: ["#13C6E2", "#61a0a8", "#d48265", "#91c7ae", "#749f83"],
         grid: {
           left: "10%",
           bottom: "10%",
-          right:"8%"
+          right: "8%"
         },
         title: {
           show: true,
