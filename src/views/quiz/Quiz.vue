@@ -76,11 +76,11 @@ export default {
       ischangefile: true,
       showLine: true,
       showIcon: false,
-      titleName: "卫星通信系统",
+      titleName: "近地轨道卫星",
       showTable: false,
-      expandedKeys: ["0-0"],
+      expandedKeys: ["太空-0"],
       autoExpandParent: true,
-      selectedKeys: ["太空-0"],
+      selectedKeys: ["近地轨道卫星"],
       treeData,
       tableData: [
         {
