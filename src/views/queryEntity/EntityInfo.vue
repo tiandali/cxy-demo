@@ -16,7 +16,7 @@
           <PolarChart />
         </div>
         <div class="lineChart">
-          <lineCharts />
+          <PieCharts />
         </div>
         <div class="barChart">
           <BarChart />
@@ -31,6 +31,7 @@ import RelationArea from "./RelationArea";
 import PolarChart from "./PolarChart";
 import BarChart from "./BarChart";
 import lineCharts from "./lineCharts";
+import PieCharts from "./PieCharts";
 import { mapState } from "vuex";
 
 export default {
@@ -40,7 +41,7 @@ export default {
     RelationArea,
     PolarChart,
     BarChart,
-    lineCharts
+    PieCharts
   },
   data() {
     return {
